@@ -1,3 +1,5 @@
+// frontend/src/pages/Login.jsx
+
 import { useState } from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import {
@@ -12,7 +14,7 @@ import {
 } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
 
-function Login() {
+export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -44,7 +46,7 @@ function Login() {
           alignItems: 'center',
         }}
       >
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" sx={{ color: 'primary.main' }}>
           Login to Digital Shield Academy
         </Typography>
         <Paper
@@ -54,6 +56,9 @@ function Login() {
             mt: 3,
             p: 3,
             width: '100%',
+            bgcolor: 'background.paper',
+            border: '1px solid rgba(0,229,255,0.4)',
+            boxShadow: '0 0 20px rgba(0,229,255,0.6)',
           }}
         >
           {error && (
@@ -72,6 +77,17 @@ function Login() {
             autoFocus
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            InputProps={{
+              sx: { color: 'text.primary' },
+            }}
+            sx={{
+              '& .MuiInput-underline:before': {
+                borderBottomColor: 'rgba(224,224,224,0.3)',
+              },
+              '& .MuiInput-underline:after': {
+                borderBottomColor: 'primary.main',
+              },
+            }}
           />
           <TextField
             margin="normal"
@@ -84,13 +100,30 @@ function Login() {
             autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            InputProps={{
+              sx: { color: 'text.primary' },
+            }}
+            sx={{
+              '& .MuiInput-underline:before': {
+                borderBottomColor: 'rgba(224,224,224,0.3)',
+              },
+              '& .MuiInput-underline:after': {
+                borderBottomColor: 'primary.main',
+              },
+            }}
           />
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
             disabled={loading}
+            sx={{
+              mt: 3,
+              mb: 2,
+              py: 1.5,
+              boxShadow: '0 0 15px rgba(0,229,255,0.6)',
+              '&:hover': { boxShadow: '0 0 25px rgba(0,229,255,0.8)' },
+            }}
           >
             {loading ? 'Logging in...' : 'Login'}
           </Button>
@@ -104,5 +137,3 @@ function Login() {
     </Container>
   );
 }
-
-export default Login;

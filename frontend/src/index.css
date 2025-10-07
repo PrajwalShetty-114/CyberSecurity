@@ -10,7 +10,7 @@ body {
   /* Radial glow and grid overlay */
   background-image:
     radial-gradient(circle at top right, rgba(0,229,255,0.1), transparent),
-    url('/grid-lines.svg');
+    url('./assets/grid-lines.svg');
   background-size: cover;
   background-blend-mode: overlay;
   font-family: 'Orbitron', 'Segoe UI', sans-serif;
