@@ -7,12 +7,11 @@ html, body, #root {
 }
 
 body {
-  /* Radial glow and grid overlay */
-  background-image:
-    radial-gradient(circle at top right, rgba(0,229,255,0.1), transparent),
-    url('./assets/grid-lines.svg');
-  background-size: cover;
-  background-blend-mode: overlay;
-  font-family: 'Orbitron', 'Segoe UI', sans-serif;
-  color: #E0E0E0;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(56,189,248,0.08), transparent 60%),
+    radial-gradient(1000px 500px at -10% -20%, rgba(216,180,254,0.07), transparent 60%),
+    linear-gradient(180deg, #0b0e14 0%, #0b0e14 100%);
+  background-attachment: fixed;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: #e5e7eb;
 }

@@ -80,6 +80,8 @@ function ScamRecognizer() {
   const [feedback, setFeedback] = useState(null);
   const [score, setScore] = useState(0);
   const [completed, setCompleted] = useState(false);
+  const [totalAttempts, setTotalAttempts] = useState(0);
+  const [startTime] = useState(Date.now());
 
   const handleAnswer = async (isCorrect, explanation) => {
     if (isCorrect) {
@@ -91,12 +93,18 @@ function ScamRecognizer() {
       explanation
     });
     setShowFeedback(true);
+    setTotalAttempts(totalAttempts + 1);
 
     if (currentScenario === scenarios.length - 1) {
       try {
+        const correctAnswers = score + (isCorrect ? 1 : 0);
+        const timeSpent = Math.round((Date.now() - startTime) / 60000);
         await axios.post('http://localhost:5000/api/progress/module-complete', {
           moduleId: 'scam-recognizer',
-          score: score + (isCorrect ? 1 : 0)
+          score: Math.round((correctAnswers / scenarios.length) * 100),
+          correctAnswers,
+          totalAttempts: totalAttempts + 1,
+          timeSpent
         });
         setCompleted(true);
       } catch (error) {
@@ -139,7 +147,7 @@ function ScamRecognizer() {
       </Box>
 
       {/* Scenario Card */}
-      <Card sx={{ mb: 4 }}>
+      <Card sx={{ mb: 4, border: '1px solid rgba(148,163,184,0.12)' }}>
         <CardContent>
           <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
             {scenario.type === 'phone' ? (

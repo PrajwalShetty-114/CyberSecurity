@@ -79,6 +79,8 @@ function PhishingSpotter() {
   const [showFeedback, setShowFeedback] = useState(false);
   const [feedbackType, setFeedbackType] = useState(null);
   const [completed, setCompleted] = useState(false);
+  const [totalAttempts, setTotalAttempts] = useState(0);
+  const [startTime] = useState(Date.now());
 
   const currentEmail = sampleEmails[currentEmailIndex];
 
@@ -88,6 +90,7 @@ function PhishingSpotter() {
     if (isCorrect) {
       setScore(score + 1);
     }
+    setTotalAttempts(totalAttempts + 1);
 
     setFeedbackType({
       correct: isCorrect,
@@ -99,9 +102,13 @@ function PhishingSpotter() {
     if (currentEmailIndex === sampleEmails.length - 1) {
       try {
         // Update progress on backend
+        const timeSpent = Math.round((Date.now() - startTime) / 60000);
         await axios.post('http://localhost:5000/api/progress/module-complete', {
           moduleId: 'phishing-spotter',
-          score: score + (isCorrect ? 1 : 0)
+          score: Math.round(((score + (isCorrect ? 1 : 0)) / sampleEmails.length) * 100),
+          correctAnswers: score + (isCorrect ? 1 : 0),
+          totalAttempts: totalAttempts + 1,
+          timeSpent
         });
         setCompleted(true);
       } catch (error) {
@@ -137,7 +144,7 @@ function PhishingSpotter() {
       </Box>
 
       {/* Email display */}
-      <Paper sx={{ p: 3, mb: 3 }}>
+      <Paper sx={{ p: 3, mb: 3, border: '1px solid rgba(148,163,184,0.12)' }}>
         <List>
           <ListItem>
             <ListItemIcon>

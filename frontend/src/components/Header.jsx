@@ -7,7 +7,8 @@ import { useAuth } from '../contexts/AuthContext';
 
 export default function Header() {
   const navigate = useNavigate();
-  const { currentUser, logout } = useAuth();
+  const { user, logout } = useAuth();
+
 
   const handleLogout = async () => {
     try {
@@ -22,10 +23,10 @@ export default function Header() {
     <AppBar
       position="static"
       sx={{
-        background: 'rgba(18,18,18,0.95)',
-        borderBottom: '1px solid rgba(0,229,255,0.4)',
-        boxShadow: '0 0 15px rgba(0,229,255,0.6)',
-        backdropFilter: 'blur(8px)',
+        background: 'rgba(17, 24, 39, 0.7)',
+        borderBottom: '1px solid rgba(148, 163, 184, 0.12)',
+        boxShadow: '0 10px 30px rgba(2, 6, 23, 0.6)',
+        backdropFilter: 'blur(10px)',
         mb: 4
       }}
     >
@@ -35,9 +36,9 @@ export default function Header() {
           component="div"
           sx={{
             flexGrow: 1,
-            color: 'primary.main',
+            color: 'text.primary',
             fontWeight: 700,
-            textShadow: '0 0 10px rgba(0,229,255,0.5)'
+            letterSpacing: -0.3
           }}
           onClick={() => navigate('/dashboard')}
           style={{ cursor: 'pointer' }}
@@ -45,17 +46,30 @@ export default function Header() {
           🛡️ Digital Shield Academy
         </Typography>
 
-        {currentUser ? (
+        {user && user.isAuthenticated ? (
           <Box sx={{ display: 'flex', gap: 2 }}>
             <Button
               color="inherit"
               sx={{
-                border: '1px solid rgba(0,229,255,0.4)',
+                border: '1px solid rgba(148, 163, 184, 0.18)',
                 borderRadius: 2,
                 px: 2,
                 '&:hover': {
-                  backgroundColor: 'rgba(0,229,255,0.1)',
-                  boxShadow: '0 0 10px rgba(0,229,255,0.6)'
+                  backgroundColor: 'rgba(148, 163, 184, 0.08)'
+                }
+              }}
+              onClick={() => navigate('/')}
+            >
+              Home
+            </Button>
+            <Button
+              color="inherit"
+              sx={{
+                border: '1px solid rgba(148, 163, 184, 0.18)',
+                borderRadius: 2,
+                px: 2,
+                '&:hover': {
+                  backgroundColor: 'rgba(148, 163, 184, 0.08)'
                 }
               }}
               onClick={() => navigate('/dashboard')}
@@ -63,16 +77,54 @@ export default function Header() {
               Dashboard
             </Button>
             <Button
+              color="inherit"
+              sx={{
+                border: '1px solid rgba(148, 163, 184, 0.18)',
+                borderRadius: 2,
+                px: 2,
+                '&:hover': {
+                  backgroundColor: 'rgba(148, 163, 184, 0.08)'
+                }
+              }}
+              onClick={() => navigate('/modules/phishing-spotter')}
+            >
+              Phishing Spotter
+            </Button>
+            <Button
+              color="inherit"
+              sx={{
+                border: '1px solid rgba(148, 163, 184, 0.18)',
+                borderRadius: 2,
+                px: 2,
+                '&:hover': {
+                  backgroundColor: 'rgba(148, 163, 184, 0.08)'
+                }
+              }}
+              onClick={() => navigate('/modules/mfa-setup')}
+            >
+              MFA Setup
+            </Button>
+            <Button
+              color="inherit"
+              sx={{
+                border: '1px solid rgba(148, 163, 184, 0.18)',
+                borderRadius: 2,
+                px: 2,
+                '&:hover': {
+                  backgroundColor: 'rgba(148, 163, 184, 0.08)'
+                }
+              }}
+              onClick={() => navigate('/modules/scam-recognizer')}
+            >
+              Scam Recognizer
+            </Button>
+            <Button
               color="secondary"
               variant="contained"
               sx={{
                 px: 3,
                 py: 1,
-                fontWeight: 600,
-                boxShadow: '0 0 10px rgba(255,0,255,0.6)',
-                '&:hover': {
-                  boxShadow: '0 0 20px rgba(255,0,255,0.8)'
-                }
+                fontWeight: 600
               }}
               onClick={handleLogout}
             >
@@ -84,12 +136,11 @@ export default function Header() {
             <Button
               color="inherit"
               sx={{
-                border: '1px solid rgba(0,229,255,0.4)',
+                border: '1px solid rgba(148, 163, 184, 0.18)',
                 borderRadius: 2,
                 px: 2,
                 '&:hover': {
-                  backgroundColor: 'rgba(0,229,255,0.1)',
-                  boxShadow: '0 0 10px rgba(0,229,255,0.6)'
+                  backgroundColor: 'rgba(148, 163, 184, 0.08)'
                 }
               }}
               onClick={() => navigate('/login')}
@@ -102,11 +153,7 @@ export default function Header() {
               sx={{
                 px: 3,
                 py: 1,
-                fontWeight: 600,
-                boxShadow: '0 0 10px rgba(255,0,255,0.6)',
-                '&:hover': {
-                  boxShadow: '0 0 20px rgba(255,0,255,0.8)'
-                }
+                fontWeight: 600
               }}
               onClick={() => navigate('/register')}
             >

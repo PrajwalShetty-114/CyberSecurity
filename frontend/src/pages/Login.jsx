@@ -46,7 +46,7 @@ export default function Login() {
           alignItems: 'center',
         }}
       >
-        <Typography component="h1" variant="h5" sx={{ color: 'primary.main' }}>
+        <Typography component="h1" variant="h5" sx={{ color: 'text.primary' }}>
           Login to Digital Shield Academy
         </Typography>
         <Paper
@@ -57,8 +57,7 @@ export default function Login() {
             p: 3,
             width: '100%',
             bgcolor: 'background.paper',
-            border: '1px solid rgba(0,229,255,0.4)',
-            boxShadow: '0 0 20px rgba(0,229,255,0.6)',
+            border: '1px solid rgba(148,163,184,0.12)'
           }}
         >
           {error && (
@@ -82,7 +81,7 @@ export default function Login() {
             }}
             sx={{
               '& .MuiInput-underline:before': {
-                borderBottomColor: 'rgba(224,224,224,0.3)',
+                borderBottomColor: 'rgba(148,163,184,0.18)',
               },
               '& .MuiInput-underline:after': {
                 borderBottomColor: 'primary.main',
@@ -105,7 +104,7 @@ export default function Login() {
             }}
             sx={{
               '& .MuiInput-underline:before': {
-                borderBottomColor: 'rgba(224,224,224,0.3)',
+                borderBottomColor: 'rgba(148,163,184,0.18)',
               },
               '& .MuiInput-underline:after': {
                 borderBottomColor: 'primary.main',
@@ -121,8 +120,7 @@ export default function Login() {
               mt: 3,
               mb: 2,
               py: 1.5,
-              boxShadow: '0 0 15px rgba(0,229,255,0.6)',
-              '&:hover': { boxShadow: '0 0 25px rgba(0,229,255,0.8)' },
+              boxShadow: 'none'
             }}
           >
             {loading ? 'Logging in...' : 'Login'}

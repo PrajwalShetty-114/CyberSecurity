@@ -83,6 +83,8 @@ function MfaSetup() {
   const [showQuiz, setShowQuiz] = useState(false);
   const [completed, setCompleted] = useState(false);
   const [score, setScore] = useState(0);
+  const [totalAttempts, setTotalAttempts] = useState(0);
+  const [startTime] = useState(Date.now());
 
   const handleNext = () => {
     setShowQuiz(true);
@@ -93,13 +95,19 @@ function MfaSetup() {
     if (isCorrect) {
       setScore(score + 1);
     }
+    setTotalAttempts(totalAttempts + 1);
     setQuizAnswer({ selected: selectedAnswer, isCorrect });
 
     if (activeStep === steps.length - 1) {
       try {
+        const correctAnswers = score + (isCorrect ? 1 : 0);
+        const timeSpent = Math.round((Date.now() - startTime) / 60000);
         await axios.post('http://localhost:5000/api/progress/module-complete', {
           moduleId: 'mfa-setup',
-          score: score + (isCorrect ? 1 : 0)
+          score: Math.round((correctAnswers / steps.length) * 100),
+          correctAnswers,
+          totalAttempts: totalAttempts + 1,
+          timeSpent
         });
         setCompleted(true);
       } catch (error) {

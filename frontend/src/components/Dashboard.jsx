@@ -80,15 +80,15 @@ const Dashboard = () => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              background: theme.palette.primary.main,
-              color: 'white'
+              background: 'linear-gradient(180deg, rgba(2,6,23,0.0) 0%, rgba(2,6,23,0.6) 100%)',
+              border: '1px solid rgba(148,163,184,0.12)'
             }}
           >
             <Avatar
               sx={{
                 width: 80,
                 height: 80,
-                bgcolor: theme.palette.primary.light,
+                bgcolor: 'rgba(125, 211, 252, 0.15)',
                 mb: 2
               }}
             >
@@ -226,17 +226,7 @@ const Dashboard = () => {
                 <React.Fragment key={user.email}>
                   <ListItem>
                     <ListItemIcon>
-                      <Avatar
-                        sx={{
-                          bgcolor: index === 0
-                            ? '#FFD700'
-                            : index === 1
-                              ? '#C0C0C0'
-                              : index === 2
-                                ? '#CD7F32'
-                                : theme.palette.primary.main
-                        }}
-                      >
+                      <Avatar sx={{ bgcolor: 'rgba(148,163,184,0.15)', color: 'text.primary' }}>
                         {index + 1}
                       </Avatar>
                     </ListItemIcon>

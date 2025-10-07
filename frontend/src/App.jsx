@@ -1,16 +1,17 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Header from './components/Header';
 import LoadingSpinner from './components/LoadingSpinner';
+import Footer from './components/Footer';
 
 
 // Pages
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './components/Dashboard';
 import PhishingSpotter from './pages/modules/PhishingSpotter';
 import MfaSetup from './pages/modules/MfaSetup';
 import ScamRecognizer from './pages/modules/ScamRecognizer';
@@ -19,28 +20,29 @@ const theme = createTheme({
   palette: {
     mode: 'dark',                      // Enable dark mode
     primary: {
-      main: '#00E5FF',                 // Neon cyan
-      light: '#60a5fa',
-      dark: '#1d4ed8',
+      main: '#7dd3fc',                 // Soft cyan
+      light: '#a5e3ff',
+      dark: '#38bdf8',
     },
     secondary: {
-      main: '#FF00FF',                 // Neon magenta
-      light: '#a78bfa',
-      dark: '#5b21b6',
+      main: '#d8b4fe',                 // Soft purple
+      light: '#e9d5ff',
+      dark: '#c084fc',
     },
     background: {
-      default: '#121212',              // Deep charcoal
-      paper: '#1E1E1E',                // Slightly lighter panel
+      default: '#0b0e14',              // Deep ink
+      paper: '#111827',                // Blue-tinted charcoal
     },
-    text: { primary: '#E0E0E0' },      // Light gray for text
-    error: { main: '#EF4444' },
-    success: { main: '#22C55E' },
+    text: { primary: '#e5e7eb', secondary: '#9aa4b2' },
+    error: { main: '#ef4444' },
+    success: { main: '#22c55e' },
   },
   typography: {
-    fontFamily: '"Orbitron", "Segoe UI", system-ui, sans-serif',
-    h1: { fontWeight: 700 },
-    h2: { fontWeight: 700 },
+    fontFamily: '"Inter", "Segoe UI", system-ui, sans-serif',
+    h1: { fontWeight: 700, letterSpacing: -0.5 },
+    h2: { fontWeight: 600, letterSpacing: -0.25 },
     h3: { fontWeight: 600 },
+    button: { textTransform: 'none', fontWeight: 600 },
   },
   shape: { borderRadius: 12 },
   components: {
@@ -48,11 +50,11 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 8,
-          padding: '10px 24px',
+          padding: '10px 20px',
         },
         contained: {
-          boxShadow: 'none',
-          '&:hover': { boxShadow: 'none' },
+          boxShadow: '0 0 0 0 rgba(0,0,0,0)',
+          '&:hover': { boxShadow: '0 0 0 0 rgba(0,0,0,0)' },
         },
       },
     },
@@ -60,10 +62,18 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 16,
-          boxShadow: '0 0 15px rgba(0,229,255,0.6)',  // Neon glow
+          boxShadow: '0 4px 24px rgba(2, 6, 23, 0.6)',
+          border: '1px solid rgba(148, 163, 184, 0.12)'
         },
       },
     },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundImage: 'none',
+        }
+      }
+    }
   },
 });
 
@@ -79,11 +89,40 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/modules/phishing-spotter" element={<PhishingSpotter />} />
-            <Route path="/modules/mfa-setup" element={<MfaSetup />} />
-            <Route path="/modules/scam-recognizer" element={<ScamRecognizer />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/modules/phishing-spotter"
+              element={
+                <ProtectedRoute>
+                  <PhishingSpotter />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/modules/mfa-setup"
+              element={
+                <ProtectedRoute>
+                  <MfaSetup />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/modules/scam-recognizer"
+              element={
+                <ProtectedRoute>
+                  <ScamRecognizer />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
+          <Footer />
         </Router>
       </AuthProvider>
     </ThemeProvider>
@@ -91,3 +130,9 @@ function App() {
 }
 
 export default App;
+
+function ProtectedRoute({ children }) {
+  const { user, loading } = useAuth();
+  if (loading) return null;
+  return user && user.isAuthenticated ? children : <Navigate to="/login" replace />;
+}

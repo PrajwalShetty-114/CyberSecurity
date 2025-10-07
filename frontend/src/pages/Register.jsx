@@ -21,7 +21,7 @@ export default function Register() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { signup } = useAuth();
+  const { register } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ export default function Register() {
     try {
       setError('');
       setLoading(true);
-      await signup(email, password);
+      await register(email, password);
       navigate('/dashboard');
     } catch (err) {
       setError(err.message || 'Failed to create account');
@@ -50,7 +50,7 @@ export default function Register() {
           alignItems: 'center',
         }}
       >
-        <Typography component="h1" variant="h5" sx={{ color: 'primary.main' }}>
+        <Typography component="h1" variant="h5" sx={{ color: 'text.primary' }}>
           Create Your Account
         </Typography>
         <Paper
@@ -61,8 +61,7 @@ export default function Register() {
             p: 3,
             width: '100%',
             bgcolor: 'background.paper',
-            border: '1px solid rgba(0,229,255,0.4)',
-            boxShadow: '0 0 20px rgba(0,229,255,0.6)',
+            border: '1px solid rgba(148,163,184,0.12)'
           }}
         >
           {error && (
@@ -83,7 +82,7 @@ export default function Register() {
             onChange={(e) => setEmail(e.target.value)}
             InputProps={{ sx: { color: 'text.primary' } }}
             sx={{
-              '& .MuiInput-underline:before': { borderBottomColor: 'rgba(224,224,224,0.3)' },
+              '& .MuiInput-underline:before': { borderBottomColor: 'rgba(148,163,184,0.18)' },
               '& .MuiInput-underline:after': { borderBottomColor: 'primary.main' },
             }}
           />
@@ -100,7 +99,7 @@ export default function Register() {
             onChange={(e) => setPassword(e.target.value)}
             InputProps={{ sx: { color: 'text.primary' } }}
             sx={{
-              '& .MuiInput-underline:before': { borderBottomColor: 'rgba(224,224,224,0.3)' },
+              '& .MuiInput-underline:before': { borderBottomColor: 'rgba(148,163,184,0.18)' },
               '& .MuiInput-underline:after': { borderBottomColor: 'primary.main' },
             }}
           />
@@ -117,7 +116,7 @@ export default function Register() {
             onChange={(e) => setPasswordConfirm(e.target.value)}
             InputProps={{ sx: { color: 'text.primary' } }}
             sx={{
-              '& .MuiInput-underline:before': { borderBottomColor: 'rgba(224,224,224,0.3)' },
+              '& .MuiInput-underline:before': { borderBottomColor: 'rgba(148,163,184,0.18)' },
               '& .MuiInput-underline:after': { borderBottomColor: 'primary.main' },
             }}
           />
@@ -126,13 +125,7 @@ export default function Register() {
             fullWidth
             variant="contained"
             disabled={loading}
-            sx={{
-              mt: 3,
-              mb: 2,
-              py: 1.5,
-              boxShadow: '0 0 15px rgba(0,229,255,0.6)',
-              '&:hover': { boxShadow: '0 0 25px rgba(0,229,255,0.8)' },
-            }}
+            sx={{ mt: 3, mb: 2, py: 1.5, boxShadow: 'none' }}
           >
             {loading ? 'Signing up...' : 'Sign Up'}
           </Button>

@@ -38,29 +38,41 @@ const userSchema = new mongoose.Schema({
                 lastAttemptDate: Date
             }
         },
-        points: {
+        points: { // Main points (for profile display, incremental actions, etc)
             type: Number,
             default: 0
+        },
+        leaderboardScore: { // Total score for leaderboard/rank (sum modules, bonuses)
+            type: Number,
+            default: 0
+        },
+        rank: { // Cached/global rank in leaderboard
+            type: Number,
+            default: null
         },
         level: {
             type: Number,
             default: 1
         },
-        badges: [{
-            id: String,
-            name: String,
-            description: String,
-            imageUrl: String,
-            earnedAt: Date
-        }],
-        achievements: [{
-            id: String,
-            name: String,
-            description: String,
-            progress: Number,
-            completed: Boolean,
-            earnedAt: Date
-        }],
+        badges: [
+            {
+                id: String,
+                name: String,
+                description: String,
+                imageUrl: String,
+                earnedAt: Date
+            }
+        ],
+        achievements: [
+            {
+                id: String,
+                name: String,
+                description: String,
+                progress: Number,
+                completed: Boolean,
+                earnedAt: Date
+            }
+        ],
         stats: {
             phishingEmailsIdentified: { type: Number, default: 0 },
             scamCallsAvoided: { type: Number, default: 0 },
@@ -79,7 +91,6 @@ const userSchema = new mongoose.Schema({
 // Hash password before saving
 userSchema.pre('save', async function(next) {
     if (!this.isModified('password')) return next();
-    
     try {
         const salt = await bcrypt.genSalt(10);
         this.password = await bcrypt.hash(this.password, salt);

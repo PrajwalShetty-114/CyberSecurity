@@ -22,19 +22,19 @@ function Home() {
       {/* Hero Section */}
       <Box
         sx={{
-          bgcolor: 'primary.main',
-          color: 'white',
-          py: 8,
+          background: 'linear-gradient(180deg, rgba(2,6,23,0.0) 0%, rgba(2,6,23,0.6) 100%)',
+          color: 'text.primary',
+          py: 10,
           textAlign: 'center'
         }}
       >
         <Container>
-          <SecurityIcon sx={{ fontSize: 60, mb: 2 }} />
+          <SecurityIcon sx={{ fontSize: 56, mb: 2, color: 'primary.main' }} />
           <Typography variant="h2" component="h1" gutterBottom>
             Digital Shield Academy
           </Typography>
           <Typography variant="h5" component="h2" gutterBottom>
-            Master Cybersecurity Through Interactive Learning
+            Master cybersecurity through interactive, aesthetic learning
           </Typography>
           <Button
             variant="contained"
@@ -53,11 +53,11 @@ function Home() {
         <Typography variant="h4" component="h2" textAlign="center" gutterBottom>
           What You'll Learn
         </Typography>
-        <Grid container spacing={4} sx={{ mt: 2 }}>
+        <Grid container spacing={3} sx={{ mt: 2 }}>
           <Grid item xs={12} md={4}>
-            <Card>
+            <Card sx={{ bgcolor: 'background.paper' }}>
               <CardContent>
-                <EmailIcon color="primary" sx={{ fontSize: 40 }} />
+                <EmailIcon color="primary" sx={{ fontSize: 36 }} />
                 <Typography variant="h6" component="h3" gutterBottom>
                   Phishing Spotter
                 </Typography>
@@ -68,9 +68,9 @@ function Home() {
             </Card>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Card>
+            <Card sx={{ bgcolor: 'background.paper' }}>
               <CardContent>
-                <VpnKeyIcon color="primary" sx={{ fontSize: 40 }} />
+                <VpnKeyIcon color="primary" sx={{ fontSize: 36 }} />
                 <Typography variant="h6" component="h3" gutterBottom>
                   MFA Setup Guide
                 </Typography>
@@ -81,9 +81,9 @@ function Home() {
             </Card>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Card>
+            <Card sx={{ bgcolor: 'background.paper' }}>
               <CardContent>
-                <PhoneIcon color="primary" sx={{ fontSize: 40 }} />
+                <PhoneIcon color="primary" sx={{ fontSize: 36 }} />
                 <Typography variant="h6" component="h3" gutterBottom>
                   Scam Recognizer
                 </Typography>
@@ -97,7 +97,7 @@ function Home() {
       </Container>
 
       {/* CTA Section */}
-      <Box sx={{ bgcolor: 'grey.100', py: 8 }}>
+      <Box sx={{ borderTop: '1px solid rgba(148,163,184,0.12)', py: 8 }}>
         <Container>
           <Typography variant="h4" component="h2" textAlign="center" gutterBottom>
             Ready to Strengthen Your Digital Security?
