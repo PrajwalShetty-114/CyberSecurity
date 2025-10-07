@@ -1,0 +1,18 @@
+/* frontend/src/index.css */
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* Radial glow and grid overlay */
+  background-image:
+    radial-gradient(circle at top right, rgba(0,229,255,0.1), transparent),
+    url('/grid-lines.svg');
+  background-size: cover;
+  background-blend-mode: overlay;
+  font-family: 'Orbitron', 'Segoe UI', sans-serif;
+  color: #E0E0E0;
+}
