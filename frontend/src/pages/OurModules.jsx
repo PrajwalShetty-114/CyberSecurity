@@ -23,6 +23,7 @@ import {
   Star as StarIcon
 } from '@mui/icons-material';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../config/api';
 
 const OurModules = () => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const OurModules = () => {
   useEffect(() => {
     const fetchModules = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/modules');
+        const response = await axios.get(API_ENDPOINTS.MODULES);
         setModules(response.data);
         setLoading(false);
       } catch (error) {

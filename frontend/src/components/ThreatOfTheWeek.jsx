@@ -25,6 +25,7 @@ import {
   TrendingUp as TrendingUpIcon
 } from '@mui/icons-material';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../config/api';
 
 const ThreatOfTheWeek = () => {
   const theme = useTheme();
@@ -38,7 +39,7 @@ const ThreatOfTheWeek = () => {
     const fetchCurrentThreat = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:5000/api/threat-of-week/current', {
+        const response = await axios.get(API_ENDPOINTS.THREAT_OF_WEEK + '/current', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setThreat(response.data);
@@ -83,7 +84,7 @@ const ThreatOfTheWeek = () => {
   const handleSimulationComplete = async (score) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/threat-of-week/submit', {
+      await axios.post(API_ENDPOINTS.THREAT_OF_WEEK + '/submit', {
         threatId: threat._id,
         score,
         timeSpent: 300 // 5 minutes average

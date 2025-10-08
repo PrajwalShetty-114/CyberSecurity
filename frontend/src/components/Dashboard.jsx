@@ -34,6 +34,7 @@ import {
   Email as EmailIcon
 } from '@mui/icons-material';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../config/api';
 import ProgressTracker from './ProgressTracker';
 import Badge from './Badge';
 import ThreatOfTheWeek from './ThreatOfTheWeek';
@@ -53,8 +54,8 @@ const Dashboard = () => {
         const headers = { Authorization: `Bearer ${token}` };
         
         const [statsResponse, leaderboardResponse] = await Promise.all([
-          axios.get('http://localhost:5000/api/progress/stats', { headers }),
-          axios.get('http://localhost:5000/api/progress/leaderboard', { headers })
+          axios.get(API_ENDPOINTS.PROGRESS + '/stats', { headers }),
+          axios.get(API_ENDPOINTS.PROGRESS + '/leaderboard', { headers })
         ]);
 
         setStats(statsResponse.data);

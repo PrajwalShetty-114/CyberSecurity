@@ -20,6 +20,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import WarningIcon from '@mui/icons-material/Warning';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../../config/api';
 
 // Sample phishing emails (in real app, these would come from the backend)
 const sampleEmails = [
@@ -103,7 +104,7 @@ function PhishingSpotter() {
       try {
         // Update progress on backend
         const timeSpent = Math.round((Date.now() - startTime) / 60000);
-        await axios.post('http://localhost:5000/api/progress/module-complete', {
+        await axios.post(API_ENDPOINTS.PROGRESS + '/module-complete', {
           moduleId: 'phishing-spotter',
           score: Math.round(((score + (isCorrect ? 1 : 0)) / sampleEmails.length) * 100),
           correctAnswers: score + (isCorrect ? 1 : 0),

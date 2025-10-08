@@ -16,6 +16,7 @@ import {
 import PhoneIcon from '@mui/icons-material/Phone';
 import SmsIcon from '@mui/icons-material/Sms';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../../config/api';
 
 const scenarios = [
   {
@@ -99,7 +100,7 @@ function ScamRecognizer() {
       try {
         const correctAnswers = score + (isCorrect ? 1 : 0);
         const timeSpent = Math.round((Date.now() - startTime) / 60000);
-        await axios.post('http://localhost:5000/api/progress/module-complete', {
+        await axios.post(API_ENDPOINTS.PROGRESS + '/module-complete', {
           moduleId: 'scam-recognizer',
           score: Math.round((correctAnswers / scenarios.length) * 100),
           correctAnswers,

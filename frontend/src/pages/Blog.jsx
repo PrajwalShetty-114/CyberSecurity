@@ -23,6 +23,7 @@ import {
   Favorite as FavoriteIcon
 } from '@mui/icons-material';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../config/api';
 
 const Blog = () => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const Blog = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/blog', {
+        const response = await axios.get(API_ENDPOINTS.BLOG, {
           params: {
             page: currentPage,
             category: selectedCategory || undefined,
@@ -60,7 +61,7 @@ const Blog = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/blog/meta/categories');
+        const response = await axios.get(API_ENDPOINTS.BLOG + '/meta/categories');
         setCategories(response.data);
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -72,7 +73,7 @@ const Blog = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/blog', {
+      const response = await axios.get(API_ENDPOINTS.BLOG, {
         params: {
           page: 1,
           category: selectedCategory || undefined,

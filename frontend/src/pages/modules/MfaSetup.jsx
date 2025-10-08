@@ -17,6 +17,7 @@ import {
   DialogActions
 } from '@mui/material';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../../config/api';
 
 const steps = [
   {
@@ -102,7 +103,7 @@ function MfaSetup() {
       try {
         const correctAnswers = score + (isCorrect ? 1 : 0);
         const timeSpent = Math.round((Date.now() - startTime) / 60000);
-        await axios.post('http://localhost:5000/api/progress/module-complete', {
+        await axios.post(API_ENDPOINTS.PROGRESS + '/module-complete', {
           moduleId: 'mfa-setup',
           score: Math.round((correctAnswers / steps.length) * 100),
           correctAnswers,

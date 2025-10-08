@@ -17,7 +17,7 @@ export function AuthProvider({ children }) {
           axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
           
           // Verify token by fetching user stats
-          const response = await axios.get('http://localhost:5000/api/progress/stats');
+          const response = await axios.get(API_ENDPOINTS.PROGRESS + '/stats');
           setUser({ 
             token,
             stats: response.data,
@@ -47,7 +47,7 @@ export function AuthProvider({ children }) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       
       // Fetch user stats after login
-      const statsResponse = await axios.get('http://localhost:5000/api/progress/stats');
+      const statsResponse = await axios.get(API_ENDPOINTS.PROGRESS + '/stats');
       setUser({ 
         id: userId, 
         email,
@@ -74,7 +74,7 @@ export function AuthProvider({ children }) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       
       // Initialize user stats after registration
-      const statsResponse = await axios.get('http://localhost:5000/api/progress/stats');
+      const statsResponse = await axios.get(API_ENDPOINTS.PROGRESS + '/stats');
       setUser({ 
         id: userId, 
         email,
