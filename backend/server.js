@@ -19,10 +19,14 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/digital-s
 .then(() => console.log('MongoDB Connected'))
 .catch(err => console.error('MongoDB Connection Error:', err));
 
-// Routes (to be implemented)
+// Routes
 app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/modules', require('./routes/modules.routes'));
 app.use('/api/progress', require('./routes/progress.routes'));
+app.use('/api/simulations', require('./routes/simulations.routes'));
+app.use('/api/threat-of-week', require('./routes/threatOfTheWeek.routes'));
+app.use('/api/business', require('./routes/business.routes'));
+app.use('/api/blog', require('./routes/blog.routes'));
 
 // Basic route
 app.get('/', (req, res) => {

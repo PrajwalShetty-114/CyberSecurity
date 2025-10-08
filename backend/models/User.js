@@ -13,6 +13,24 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    firstName: {
+        type: String,
+        trim: true
+    },
+    lastName: {
+        type: String,
+        trim: true
+    },
+    userType: {
+        type: String,
+        enum: ['individual', 'business_admin', 'business_member', 'platform_admin'],
+        default: 'individual'
+    },
+    businessId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Business',
+        default: null
+    },
     progress: {
         completedModules: [{
             type: String,
@@ -23,19 +41,26 @@ const userSchema = new mongoose.Schema({
                 score: { type: Number, default: 0 },
                 correctAnswers: { type: Number, default: 0 },
                 totalAttempts: { type: Number, default: 0 },
-                lastAttemptDate: Date
+                lastAttemptDate: Date,
+                simulationsCompleted: { type: Number, default: 0 },
+                perfectRuns: { type: Number, default: 0 }
             },
             'mfa-setup': {
                 score: { type: Number, default: 0 },
                 correctAnswers: { type: Number, default: 0 },
                 totalAttempts: { type: Number, default: 0 },
-                lastAttemptDate: Date
+                lastAttemptDate: Date,
+                platformsSetup: { type: Number, default: 0 },
+                setupCompleted: { type: Boolean, default: false }
             },
             'scam-recognizer': {
                 score: { type: Number, default: 0 },
                 correctAnswers: { type: Number, default: 0 },
                 totalAttempts: { type: Number, default: 0 },
-                lastAttemptDate: Date
+                lastAttemptDate: Date,
+                scamsIdentified: { type: Number, default: 0 },
+                vishingCallsAvoided: { type: Number, default: 0 },
+                smishingTextsAvoided: { type: Number, default: 0 }
             }
         },
         points: { // Main points (for profile display, incremental actions, etc)
@@ -54,12 +79,25 @@ const userSchema = new mongoose.Schema({
             type: Number,
             default: 1
         },
+        xp: {
+            current: { type: Number, default: 0 },
+            toNextLevel: { type: Number, default: 1000 }
+        },
         badges: [
             {
                 id: String,
                 name: String,
                 description: String,
                 imageUrl: String,
+                category: {
+                    type: String,
+                    enum: ['module', 'achievement', 'special', 'streak', 'perfect']
+                },
+                rarity: {
+                    type: String,
+                    enum: ['common', 'rare', 'epic', 'legendary'],
+                    default: 'common'
+                },
                 earnedAt: Date
             }
         ],
@@ -69,8 +107,10 @@ const userSchema = new mongoose.Schema({
                 name: String,
                 description: String,
                 progress: Number,
+                target: Number,
                 completed: Boolean,
-                earnedAt: Date
+                earnedAt: Date,
+                category: String
             }
         ],
         stats: {
@@ -79,7 +119,29 @@ const userSchema = new mongoose.Schema({
             mfaSetupCompleted: { type: Number, default: 0 },
             totalTimeSpent: { type: Number, default: 0 }, // in minutes
             loginStreak: { type: Number, default: 0 },
-            lastLoginDate: Date
+            lastLoginDate: Date,
+            perfectScores: { type: Number, default: 0 },
+            threatOfWeekCompleted: { type: Number, default: 0 },
+            simulationsPlayed: { type: Number, default: 0 },
+            averageAccuracy: { type: Number, default: 0 },
+            longestStreak: { type: Number, default: 0 }
+        },
+        preferences: {
+            notifications: {
+                email: { type: Boolean, default: true },
+                threatAlerts: { type: Boolean, default: true },
+                achievements: { type: Boolean, default: true }
+            },
+            difficulty: {
+                type: String,
+                enum: ['beginner', 'intermediate', 'advanced', 'adaptive'],
+                default: 'adaptive'
+            },
+            theme: {
+                type: String,
+                enum: ['dark', 'light', 'auto'],
+                default: 'dark'
+            }
         }
     },
     createdAt: {

@@ -12,6 +12,12 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './components/Dashboard';
+import OurModules from './pages/OurModules';
+import ForIndividuals from './pages/ForIndividuals';
+import ForBusiness from './pages/ForBusiness';
+import AcademyDifference from './pages/AcademyDifference';
+import Blog from './pages/Blog';
+import Contact from './pages/Contact';
 import PhishingSpotter from './pages/modules/PhishingSpotter';
 import MfaSetup from './pages/modules/MfaSetup';
 import ScamRecognizer from './pages/modules/ScamRecognizer';
@@ -89,6 +95,12 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/modules" element={<OurModules />} />
+            <Route path="/individuals" element={<ForIndividuals />} />
+            <Route path="/business" element={<ForBusiness />} />
+            <Route path="/academy-difference" element={<AcademyDifference />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/contact" element={<Contact />} />
             <Route
               path="/dashboard"
               element={
