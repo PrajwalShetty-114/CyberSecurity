@@ -21,6 +21,7 @@ import Contact from './pages/Contact';
 import PhishingSpotter from './pages/modules/PhishingSpotter';
 import MfaSetup from './pages/modules/MfaSetup';
 import ScamRecognizer from './pages/modules/ScamRecognizer';
+import SpamSubmitter from './pages/SpamSubmitter';
 
 const theme = createTheme({
   palette: {
@@ -130,6 +131,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <ScamRecognizer />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/spam-submitter"
+              element={
+                <ProtectedRoute>
+                  <SpamSubmitter />
                 </ProtectedRoute>
               }
             />

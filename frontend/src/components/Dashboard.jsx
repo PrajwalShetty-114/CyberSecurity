@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Container,
@@ -18,7 +19,8 @@ import {
   useTheme,
   Tabs,
   Tab,
-  Chip
+  Chip,
+  Button
 } from '@mui/material';
 import {
   EmojiEvents as TrophyIcon,
@@ -28,7 +30,8 @@ import {
   Grade as GradeIcon,
   Dashboard as DashboardIcon,
   Badge as BadgeIcon,
-  TrendingUp as TrendingUpIcon
+  TrendingUp as TrendingUpIcon,
+  Email as EmailIcon
 } from '@mui/icons-material';
 import axios from 'axios';
 import ProgressTracker from './ProgressTracker';
@@ -36,6 +39,7 @@ import Badge from './Badge';
 import ThreatOfTheWeek from './ThreatOfTheWeek';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [stats, setStats] = useState(null);
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -98,6 +102,63 @@ const Dashboard = () => {
       {/* Threat of the Week */}
       <Box sx={{ mb: 4 }}>
         <ThreatOfTheWeek />
+      </Box>
+
+      {/* Quick Actions */}
+      <Box sx={{ mb: 4 }}>
+        <Card>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              Quick Actions
+            </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6} md={3}>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  startIcon={<EmailIcon />}
+                  onClick={() => navigate('/spam-submitter')}
+                  sx={{ height: 60 }}
+                >
+                  Submit Spam Email
+                </Button>
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  startIcon={<SecurityIcon />}
+                  onClick={() => navigate('/modules')}
+                  sx={{ height: 60 }}
+                >
+                  Practice Modules
+                </Button>
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  startIcon={<TrophyIcon />}
+                  onClick={() => navigate('/modules')}
+                  sx={{ height: 60 }}
+                >
+                  View Badges
+                </Button>
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  startIcon={<TrendingUpIcon />}
+                  onClick={() => navigate('/blog')}
+                  sx={{ height: 60 }}
+                >
+                  Read Blog
+                </Button>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
       </Box>
 
       {/* Dashboard Tabs */}

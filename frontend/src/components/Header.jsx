@@ -54,6 +54,7 @@ export default function Header() {
   const authenticatedNavigationItems = [
     { label: 'Dashboard', path: '/dashboard' },
     { label: 'Modules', path: '/modules' },
+    { label: 'Spam Submitter', path: '/spam-submitter' },
     { label: 'Blog', path: '/blog' }
   ];
 

@@ -27,6 +27,7 @@ app.use('/api/simulations', require('./routes/simulations.routes'));
 app.use('/api/threat-of-week', require('./routes/threatOfTheWeek.routes'));
 app.use('/api/business', require('./routes/business.routes'));
 app.use('/api/blog', require('./routes/blog.routes'));
+app.use('/api/spam-submissions', require('./routes/spamSubmissions.routes'));
 
 // Basic route
 app.get('/', (req, res) => {
